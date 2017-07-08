@@ -10,3 +10,12 @@ resource "aws_db_instance" "example" {
 	username	=	"admin"
 	password	=	"${var.db_password}"
 }
+data "terraform_remote_state" "db" {
+	backend = "s3"
+
+	config {
+		bucket = "terraform-up-and-running-state-panik"
+		key = "stage/data-stores/mysql/terraform.tfstate"
+		region = "us-east-1"
+	}
+}
